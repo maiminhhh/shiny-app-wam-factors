@@ -44,7 +44,7 @@ This project presents an **exploratory data analysis (EDA)** of student performa
 ## 📌 Live App + Reports
 
 - 🌐 [Interactive Shiny App](https://maiminhhh.shinyapps.io/DATA2902_ShinyApp/)
-- 📄 [Final Report (HTML)](https://maiminhhh.github.io/shinyapp-wam-factors/)
+- 📄 [View Final Report](https://maiminhhh.github.io/shiny-app-wam-factors/)
 
 ---
 
