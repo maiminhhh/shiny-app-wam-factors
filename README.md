@@ -1,43 +1,51 @@
 # 📊 Exploratory Analysis of WAM in DATA2X02
 
-## Summary
-
-This project presents an exploratory analysis of student data to understand **potential factors associated with Weighted Average Mark (WAM)** in the DATA2X02 course. The aim is to uncover **patterns and relationships** in the data through visualizations and descriptive statistics, without building predictive or statistical models.
-
-## Features
-
-- **Exploratory Data Analysis (EDA)**:
-  - Investigated relationships between variables such as quiz scores, tutorial engagement, and assignment performance.
-  - Created summary statistics, boxplots, and scatterplots to explore how various features may relate to WAM.
-  - Highlighted noteworthy trends and anomalies in the data.
-
-- **Interactive Shiny App**:
-  - Built a **Shiny web application** that enables users to:
-    - Filter and explore the dataset interactively.
-    - Visualize distributions and pairwise relationships.
-    - Gain insights without needing to write R code.
-  - 🔗 [View the app on Posit Cloud](https://maiminhhh.shinyapps.io/DATA2902_ShinyApp/) 
-
-## Technologies Used
-
-- **Language**: R (tidyverse, ggplot2, readr)
-- **App**: Shiny + Posit Cloud
-- **Report**: Quarto + HTML
-- **Version Control**: Git + GitHub
-
-## Deliverables
-
-- `[DATA2902] Final report.qmd` → Rendered to HTML as the final written report.
-- `[DATA2902] Individual_asm.R` → Interactive application source code.
-- Visualizations, variable summaries, and discussion of findings.
-
-## Skills Demonstrated
-
-- Data wrangling and cleaning
-- Exploratory analysis and visualization
-- R Shiny development
-- Communicating findings through reproducible reporting
+This project presents an **exploratory data analysis (EDA)** of student performance data in the University of Sydney's DATA2X02 course. The goal is to identify potential factors associated with **Weighted Average Mark (WAM)** through descriptive statistics and interactive visualization — *without building predictive models*.
 
 ---
 
-*This project was completed as part of the DATA2902 course at the University of Sydney.*
+## 📌 Project Highlights
+
+- 📈 **Exploratory Analysis**:
+  - Investigated patterns in quiz scores, tutorial participation, and assignment results.
+  - Visualized distributions, trends, and outliers using summary statistics, boxplots, and scatterplots.
+  - Highlighted relationships between course engagement and final WAM.
+
+- 💻 **Interactive Shiny App**:
+  - Built with `shiny` and hosted on **Posit Cloud**
+  - Enables real-time filtering, comparison, and exploration of features linked to WAM  
+  - 🔗 [Launch the App](https://maiminhhh.shinyapps.io/DATA2902_ShinyApp/)
+
+- 📄 **Reproducible Reporting**:
+  - Authored with **Quarto** for full transparency and reproducibility.
+  - Includes both source (`.qmd`) and rendered HTML report.
+
+---
+
+## 🧰 Tools & Technologies
+
+- **Language**: R  
+- **Libraries**: `tidyverse`, `ggplot2`, `dplyr`, `readr`, `shiny`, `quarto`
+- **Platforms**: Posit Cloud (Shiny), GitHub
+- **Version Control**: Git
+
+---
+
+## 🧠 Skills Demonstrated
+
+- Exploratory data analysis (EDA)
+- Data wrangling and transformation
+- Interactive data visualization using Shiny
+- Reproducible reporting with Quarto
+- Communication of data-driven insights
+
+---
+
+## 📌 Live App + Reports
+
+- 🌐 [Interactive Shiny App](https://maiminhhh.shinyapps.io/DATA2902_ShinyApp/)
+- 📄 [Final Report (HTML)](https://maiminhhh.github.io/shinyapp-wam-factors/)
+
+---
+
+> *This project was completed as part of the DATA2902 course at the University of Sydney.*
