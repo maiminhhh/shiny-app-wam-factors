@@ -1,0 +1,429 @@
+---
+title: "What could be related to the Weighted Average Mark of DATA2X02 students?"
+date: "08/31/2023"
+author: "510569026"
+format: 
+  html: 
+    embed-resources: true
+    code-fold: true
+    code-tools: true 
+table-of-contents: true
+number-sections: true
+---
+
+# Introduction
+
+## Is this a random sample of DATA2X02 students?
+
+-   According to The University of Texas at Austin's Statistics Online Support website, a sample is said to be truly random when every subject in the targeted population has an equal chance of being selected during sampling.
+
+-   However, there are some factors that might disturb the probability of certain groups of subjects being selected in this survey:
+
+    -   Participation in the survey is completely voluntary. Therefore, many subjects with similar characteristics could have been systematically excluded from the survey. This could potentially be anti-social students, introverted students, diffident students, or simply just individuals who feel uncomfortable to share their personal information online, to name a few.
+
+    -   Since there are no restrictions set on how many times an individual are allowed to fill in the form, it might be the case where a student responds to the survey more than once. Hence, the high response rate of $313/675 \approx 46.73\%$ could not confidently represent the proportion of DATA2X02 students involved in data collecting. In other words, not every subject within this population is equally picked, since some of them would have a higher probability of being chosen due to multiple times of response.
+
+-   Therefore, further verification is necessary before a firm conclusion about the randomness of this sample in representing the whole cohort of DATA2X02 could be reached.
+
+## What are the potential biases? Which variables are most likely to be subjected to this bias?
+
+-   **Selection bias:** The survey is conducted online with an introduction posted on Edstem.org, which is a social platform mainly used for academic purposes among DATA2X02 students and staff. Due to its indirect delivery method, a group of technologically disadvantaged people could be unintentionally eliminated from this sample. Some potentially impacted variables from this bias might be:
+
+    -   Age, since older people tend to be less tech-savvy than their younger counterparts. DATA2X02 cohort may include a group of old people in their 30s, 40s, or even more, who either are too busy to check on the platform regularly, or are beginners in using technology, and thus not taking part in the survey.
+
+    -   Number of hours spent on social media, since students with lower usage of social platforms might miss the information about the survey.
+
+-   **Non-response bias:** Like other voluntary surveys where participants have the right to keep certain questions unanswered, the dataset obtained from this study excluded every individual who is unwilling to share their personal information about specific aspects. Some of the affected statistics might include:
+
+    -   Their tendency of saying "yes" and "no" throughout life, as people who lean towards rejection would possibly refuse to answer this whole study eventually.
+
+    -   Their active level when it comes to group work, as either anti-social students or introverted people who tend to be more passive than their extroverted counterparts might be unwilling to join this survey
+
+-   **Response bias:** Even when the questions are answered, awareness should still be raised for response bias. Typically, as respondents were given unlimited amount of time to fill in their answer, they did have time to think and modify their answers based on what they believe to be widely accepted, and thus leading to an unreliable reflection of their true behaviors. This might be:
+
+    -   A higher self-reported number of hours spent on studying on a weekly basis
+
+    -   A lower self-reported amount of money spent on food and beverages
+
+    -   A higher self-reported WAM *([**e.g.**]{.underline} someone might round up their WAM from 73 to 75, which makes his observation appear to be a Distinction when in fact is a Credit)*
+
+-   **Measurement bias:** Some questions in the surveys are especially ambiguous in their wordings. Consequently, since each part-taker would have their own way to define the question, their responses could be based on different measurement standard, which results in the disability of comparison across observations. Some of this poorly worded questions and the affected variables are:
+
+    -   Self-rated questions such as "What kind of role (active or passive) do you think you are when working as part of a team?", since each person would have their own definition of each level of activeness and passiveness
+
+    -   Frequency questions like "How often would you say you feel anxious on a daily basis?", or "Do you submit assignments on time?", as each person would have their own interpretation when it comes to frequency.
+
+    -   Questions without specific unit of measurement, such as "What is your shoe size?", or "How tall are you?" Apparently, DATA2X02 students is a diverse cohort with people coming from multiple nations around the globe. Hence, for these poorly-defined questions, their response might be based on inch, centimeter, meter, UK shoe size, US shoe size, Australia shoe size,...
+
+## Which questions needed improvement to generate useful data?
+
+-   Unlike selection bias, non-response bias and response bias which can only be ameliorated by adjusting the survey methodology, measurement bias could be remedied by making some modifications within the question itself.
+
+-   Particularly, some ambiguous questions can be rephrased:
+
+    -   Frequency questions:
+
+        -   "How often would you say you feel anxious on a daily basis?" could instead be "How many times a day (on average) do you feel anxious?"
+
+        -   "Do you submit assignments on time?" could instead be "How many assignments have you had so far? How many of them did you submit on time?"
+
+    -   Questions without a measurement explicitly stated:
+
+        -   "How tall are you?" could be turned into "What is your height in meters?"
+
+        -   "What is your shoe size?" could be turned into "What is your shoe size in Australia shoe size measurement?"
+
+-   Some of the available options for multiple choice questions could also be modified for clearer measurement:
+
+    -   For the question "What kind of role (active or passive) do you think you are when working as part of a team?", instead of allowing participants to self-rate from 1 to 10, choices should be made more specific, like:
+
+        A. Active all the time
+
+        B. Somewhat more active
+
+        C. In between
+
+        D. Somewhat more passive
+
+        E. Passive all the time
+
+-   Another improvement that can be made to the questions so as to higher the data quality would be limiting the response validation. In particular, short answer should be avoided, as with this form of answer, respondents can fill in whatever they wish to. This could potentially lead to a more complicated data cleaning process, and in worse cases, result in some high-quality data being accidentally dismissed. Instead either multiple choice or drop down should be preferred, since both would give a better consistency within the database, which eventually makes the data much more readily available to use.
+
+# Data cleaning
+
+-   The data cleaning process starts with loading the `tidyverse` package. `tidyverse` is a collection of open-source R packages designed to make data manipulation and analysis more efficient and user-friendly. The packages `dplyr` , `ggplot2` , `tidyr` , `readr` , `stringr` and `forcats` included would make the cleaning and processing of the data much manageable later on.
+
+```{r, warning = FALSE, message = FALSE}
+# loading necessary libraries
+library(tidyverse)
+```
+
+-   The dataset, which is originally stored as a csv file, was then imported to the current working environment using the `read.csv` command
+
+```{r, warning = FALSE, message = FALSE}
+# importing the dataset
+dataset = read.csv("dataset.csv")
+```
+
+-   The original column names of the dataset was indeed descriptive, but too long and complicated to be used as variables and called out multiple times in the data processing. Therefore, the names of the columns are modified using `colnames(dataset)` to be shorter, yet still informative to a certain extent
+
+```{r, warning = FALSE, message = FALSE}
+#modifying column names
+new_col_names = c("time", "n_units", "task_approach", "age", "respond_habit", "fass_units",
+                  "fass_major", "novel", "lib", "health_insurance", "sweet_days", "rent",
+                  "post_code", "haircut_freq", "laptop", "urinal_position", "stall_position",
+                  "n_weetbix", "money_fnb", "pineapple", "living_arrangements", "height",
+                  "uni_transport", "anxious_freq", "study_time", "work", "social_media",
+                  "gender", "sleep_time", "diet", "random_num", "steak", "dominant_hand",
+                  "unit_stream", "exercise_time", "employment_time", "asm_submit", "r_exp",
+                  "group_role", "social_media_time", "uni_year", "sports", "wam", "shoe_size")
+colnames(dataset) = new_col_names
+
+```
+
+-   Since DATA2X02 students' WAM would be investigated throughout this report, it should be the first variable to get cleaned. Specifically, the valid range for this variable would be set from 50 to 100 inclusively, since 100 is the maximum WAM that one can get, and 50 is the acceptable pass rate. Apparently, we are assuming that this cohort of students have at least passed all of the units they have taken so far, since they are a part of an excellent top 20 university worldwide! Any values out of this valid range would be returned as `NA`.
+
+-   As the report would specifically look into DATA2X02 students' WAM and some possibly-related factors, throughout this report, students should be divided into groups based on their WAM to facilitate the analyzing process. As a result, a new variable called `wam_rate` is introduced to store the group each observation belongs to. Particularly, if $50 \leq WAM <75$, the corresponding `wam_rate` would be "Lower WAM", otherwise it would be "Higher WAM".
+
+```{r, warning = FALSE, message = FALSE}
+#cleaning wam
+dataset$wam = if_else(dataset$wam >= 50 & dataset$wam <= 100, dataset$wam, NA)
+#grouping wam
+wam = parse_number(as.character(dataset$wam))
+wam_rate = case_when(
+  wam >= 75 & wam <= 100 ~ "Higher WAM",
+  wam >= 50 & wam < 75 ~ "Lower WAM",
+  TRUE ~ as.character(wam)
+)
+```
+
+-   Since the data stored in `asm_submit` are answers to a multiple choice question "Do you submit assignment on time?", the format of the collected data is relatively consistent. Hence, when dealing with this `asm_submit`, we would only need to label empty data as `NA` to differentiate them with the responded one.
+
+```{r, warning = FALSE, message = FALSE}
+#cleaning asm submission pattern
+dataset$asm_submit = if_else(dataset$asm_submit == "" | is.na(dataset$asm_submit), NA, dataset$asm_submit)
+```
+
+-   The greatest issue when dealing with the `height` variable is the inconsistent measuring unit, since the question about students' height does not explicitly tell them which unit they should report their heights in. Nevertheless, by using common sense, this data can still be cleaned and put into the processing later on. Specifically:
+
+    -   Any value $\leq 2.5$ could be height reported in meters, and so could be converted into centimeters by a multiplication with 100.
+
+    -   Any value $\leq 9$ could possibly be height reported in feet. However, the conversion steps might be a little complicated, and there are not many observations of that particular type. Hence, these values should be treated as `NA` .
+
+    -   Any value $< 90$ could be height reported in inches, and so could be converted into centimeters by a multiplication with 2.54.
+
+-   After being cleaned, the values of `height` would now use centimeters as their default unit of measurement.
+
+```{r, warning = FALSE, message = FALSE}
+#cleaning height
+dataset$height = case_when(
+  parse_number(dataset$height) <= 2.5 ~ parse_number(dataset$height)*100,
+  parse_number(dataset$height) <= 9 ~ NA_real_,
+  parse_number(dataset$height) < 90 ~ parse_number(dataset$height)*2.54,
+  parse_number(dataset$height) > 100 ~ parse_number(dataset$height),
+  TRUE ~ as.numeric(dataset$height)
+)
+dataset$height = if_else(as.numeric(dataset$height) > 100, dataset$height, NA)
+```
+
+-   Similar to the `asm_submit` variable, data stored in `task_approach` appear to be fairly consistent, as it is also obtained from a multiple choice question. Therefore, in the data cleaning process of this variable, we would just find and mark empty values as NA. Additionally, for easier access later on, the values of `asm_submit` are also transformed into shorter versions.
+
+```{r, warning = FALSE, message = FALSE}
+#cleaning task_approach
+dataset$task_approach = case_when(
+  dataset$task_approach == "" ~ NA,
+  dataset$task_approach == "cram at the last second" ~ "last minute",
+  dataset$task_approach == "do them immediately" ~ "immediately",
+  dataset$task_approach == "draw up a schedule and work through it in planned stages" ~ "plan",
+  TRUE ~ dataset$task_approach
+)
+```
+
+# Results
+
+## Is DATA2X02 students' approach to a due task significantly related to their WAM with a significant level of 0.05?
+
+-   A general look at Figure 1 suggests that a larger proportion of students who leave their assignments until last minutes ended up with a lower WAM, as opposed to the trend observed among those who either start the task immediately or in a structured plan. In order to verify whether there is a significant relationship between DATA2X02 students' WAM and how they accomplish their due tasks, we would perform a chi-squared test for independence.
+
+```{r, warning = FALSE, message = FALSE}
+task_approach = dataset$task_approach
+df_task = data.frame(wam_rate, task_approach)
+df_task = filter(df_task, !is.na(wam_rate) & !is.na(task_approach))
+tb_task = table(df_task)
+ggplot(df_task) + 
+  aes(task_approach, fill = wam_rate) +
+  geom_bar(position = "dodge2") + 
+  labs(x = "Due tasks approach", 
+       y = "Count", 
+       fill = "WAM rate")
+```
+
+~**Figure 1:** How DATA2X02 students approach due tasks and their WAM rates in a bar chart~
+
+```{r, warning = FALSE, message = FALSE}
+task_mtrx = matrix(0,nrow = 3, ncol = 4)
+for (i in 1:2) {
+  for (j in 1:3) {
+    task_mtrx[i,j] = tb_task[i,j]
+  }
+}
+for (i in 1:2) {
+  task_mtrx[i,4] = sum(task_mtrx[i,])
+}
+for (j in 1:3) {
+  task_mtrx[3,j] = sum(task_mtrx[,j])
+}
+task_mtrx[3,4] = sum(task_mtrx[3,])
+rownames(task_mtrx) = c("Higher WAM", "Lower WAM", "Column Total")
+colnames(task_mtrx) = c("Immediately", "Last Minute", "Plan", "Row Total")
+knitr::kable(task_mtrx)
+
+```
+
+~**Table 1:** Observed contingency table of DATA2X02 students' approach to due tasks and their WAM rate~
+
+1.  **Hypothesis:**
+
+    -   $H_0$: DATA2X02 students' WAM is independent of their approach to due tasks.
+
+    -   $H_1$: DATA2X02 students' WAM is not independent of their approach to due tasks.
+
+2.  **Assumptions:**
+
+    -   Each of the observations of the data is expected to represent the WAM and due tasks approach of an independent students within DATA2X02. Therefore, the observed data appears to be independent.
+    -   As can be seen in the table below, supposed that $H_0$ is true, then we would expect none of the observations to be less than 5. In other words, this data frame has successfully satisfied the assumption for chi-squared test for independence.
+
+    ```{r, warning = FALSE, message = FALSE}
+    expected_task = matrix(nrow = 2, ncol = 3)
+    n_task = task_mtrx[3,4]
+    for (i in 1:2) {
+      for (j in 1:3) {
+        expected_task[i,j] = task_mtrx[i,4] * task_mtrx[3,j] / n_task
+      }
+    }
+    colnames(expected_task) = c("Immediately", "Last Minute", "Plan")
+    rownames(expected_task) = c("Higher WAM", "Lower WAM")
+    knitr::kable(expected_task)
+    ```
+
+    ~**Table 2:** DATA2X02 students' approach to due tasks and their WAM rate expected under~ $H_0$
+
+3.  **Test statistic:** $\displaystyle T = \sum_{i=1}^r\sum_{j=1}^c\frac{(Y_{ij} - e_{ij})^2}{e_{ij}}$ . Under $H_0$, $T \sim \chi_{2}^2$ approximately
+
+    ```{r, warning = FALSE, message = FALSE}
+    task_test = chisq.test(task_mtrx)
+    ```
+
+4.  **Observed test statistic:** $t_0 = 4.5445$
+
+5.  **p-value:** $P(T \ge t_0) = P(\chi_{2}^2 \ge 4.5445) = 0.1031$
+
+6.  **Decision:** Since the p-value is greater than 0.05, we retain the null hypothesis and conclude that the ways DATA2X02 students' conduct their assignments are independent of their WAM.
+
+-   [**Limitations:**]{.underline} the assumptions of independent observations need further verification, since with an online survey, there might be some factors disturbing the independence of the data *(e.g. people filling their answers more than once).*
+
+## Are taller people really smarter?
+
+```{r, warning = FALSE, message = FALSE}
+height = dataset$height
+df_height = data.frame(wam_rate, height)
+df_height = filter(df_height, !is.na(wam_rate) & !is.na(height))
+
+height_high = filter(df_height, wam_rate == "Higher WAM")$height
+height_low = filter(df_height, wam_rate == "Lower WAM")$height
+
+(ggplot(df_height) + 
+  aes(x = wam_rate, y = height) +
+  geom_boxplot() + 
+    labs(x = "WAM rate", y = "Height"))
+```
+
+~**Figure 2:** DATA2X02 students' height and their WAM rate in box plots~
+
+-   According to an article by theguardian.com, tall people are often smarter. But is it the case in DATA2X02 cohort? With the given dataset, we would assume that the WAM rate of each student fully reflects his/her intelligence, and that the self-reported height data is reliable.
+-   Figure 2 visualizes the 2 variables of concern in a side-by-side box plot, which indicates that there is barely any noteworthy differences between groups of students with higher and lower WAM. Nevertheless, a two-sample t-test should still be performed on `wam_rate` and `height` to confirm this observation with certainty, assuming the level of significance is 0.05.
+
+1.  **Hypothesis:**
+
+    -   Let $\mu_H$ be the mean height of students with higher WAM in the DATA2X02 cohort
+
+    -   Let $\mu_L$ be the mean height of students with a lower WAM in the DATA2X02 cohort
+
+    -   $H_0$: $\mu_H = \mu_L$
+
+    -   $H_1$: $\mu_H > \mu_L$
+
+2.  **Assumptions:**
+
+    -   Since the heights of students in both groups originate from the same dataset, and each observations within this dataset are supposed to be of different individual, we can assume that the information in groups with lower and higher WAM rates are all independently and identically attributed.
+
+    -   By calculation, standard deviations of groups with higher and lower WAM rate appear to be roughly the same, which makes it appropriate to use the t-test in this case.
+
+        ```{r, warning = FALSE, message = FALSE}
+        sd_height_hight = sd(height_high) ; sd_height_low = sd(height_low)
+        ```
+
+    -   As can be observed from Figure 3, the box plots for either of the data group show relatively symmetric distribution. Additionally, in Figure 4, the points in the corresponding QQ plots of both groups are fairly close to the QQ line. Hence, we could conclude that the two data groups satisfied the normality assumption for the two-sample t-test
+
+        ```{r, warning = FALSE, message = FALSE}
+        par(mfrow = c(1,2))
+        qqnorm(y = height_high) ; qqline(height_high)
+        qqnorm(y = height_low) ; qqline(height_low)
+        ```
+
+        ^**Figure 3:** QQ line corresponding to the heights of students with higher WAM rate *(left)* and lower one *(right)*^
+
+3.  **Test statistic:** $T = \frac{{\bar X} - {\bar Y}}{S_p \sqrt{\frac{1}{n_x} + \frac{1}{n_y}}}$ . Under $H_0$, $T \sim t_{220}$
+
+    ```{r, warning = FALSE, message = FALSE}
+    n_x = length(height_high)
+    n_y = length(height_low)
+    ```
+
+4.  **Observed test statistic:** $t_0 = 0.86446$, with 220 degrees of freedom
+
+    ```{r, warning = FALSE, message = FALSE}
+    height_test = t.test(height_high, height_low, 
+                         alternative = "greater",
+                         var.equal = TRUE)
+    ```
+
+<!-- -->
+
+5.  **p-value:** $P(t_{220}\ge t_0) = 0.1941$
+
+    ```{r, warning = FALSE, message = FALSE}
+    pt(0.86446, df = 220, lower.tail = FALSE)
+    ```
+
+6.  **Decision:** Since a large p-value of approximately 0.2, which is much larger than the 0.05 significant level, is observed from the test, $H_0$ should be retained. Consequently, we could come to the result that within DATA2X02 cohort, tall and short people are equally intelligent
+
+-   [**Limitation:**]{.underline} as the values of `height` have gone through complicated steps of cleaning, the authenticity of this data cannot be certainly confirmed.
+
+## Is there any noteworthy relationship between assignment submission punctuality and WAM rate among DATA2X02 cohort?
+
+-   As a policy of the university, late submission of assignments would often lead to marks penalties. However, are these penalties severe enough to hurt students WAM, especially those taking DATA2X02 this semester? In other words, are DATA2X02 students' WAM dependent on their punctuality in submission?
+
+```{r, warning = FALSE, message = FALSE}
+asm_submit = dataset$asm_submit
+df_asm = data.frame(wam_rate, asm_submit)
+df_asm = filter(df_asm, !is.na(wam_rate) & !is.na(asm_submit))
+
+tb_asm = table(df_asm)
+asm_mtrx = matrix(nrow = 2, ncol = 4)
+for (i in 1:2) {
+  for (j in 1:4) {
+    asm_mtrx[i,j] = tb_asm[i,j]
+  }
+}
+colnames(asm_mtrx) = c("Always", "Usually", "Sometimes", "Never")
+rownames(asm_mtrx) = c("Higher WAM", "Lower WAM")
+knitr::kable(asm_mtrx)
+```
+
+^**Table 3:** DATA2X02 students' WAM rate and their frequency of submitting assignments on time^
+
+```{r, warning = FALSE, message = FALSE}
+ggplot(df_asm) + 
+  aes(x = asm_submit, fill = wam_rate) + 
+  geom_bar(position = "fill")
+```
+
+^**Figure 3:** DATA2X02 students' WAM rate and their frequency of submitting assignments on time in bar chart^
+
+-   According to the data shown in Table 3, as some observations are extremely small, Monte Carlo simulation should be suitable for this question.
+
+1.  **Hypothesis:**
+
+    -   $H_0$: DATA2X02 students' WAM rate is independent of their frequency of submitting assignments on time
+
+    -   $H_1$: DATA2X02 students' WAM rate is dependent on their frequency of submitting assignments on time
+
+2.  **Assumption:** Monte Carlo simulation has no assumptions associated with it
+
+3.  **Test statistic:** $\displaystyle T = \sum_{i=1}^r\sum_{j=1}^c\frac{(Y_{ij} - e_{ij})^2}{e_{ij}}$ . Under $H_0$, $T \sim \chi_{2}^2$ approximately
+
+    ```{r, warning = FALSE, message = FALSE}
+    tb_asm = table(df_asm)
+    asm_mtrx = matrix(nrow = 2, ncol = 4)
+    for (i in 1:2) {
+      for (j in 1:4) {
+        asm_mtrx[i,j] = tb_asm[i,j]
+      }
+    }
+    colnames(asm_mtrx) = c("Always", "Usually", "Sometimes", "Never")
+    rownames(asm_mtrx) = c("Higher WAM", "Lower WAM")
+
+    set.seed(123)
+    chisq.test(asm_mtrx, simulate.p.value = TRUE, B = 10000)
+    ```
+
+4.  **Observed test statistic:** $t_0 = 17.325$
+
+5.  **p-value:** $P(T \ge t_0) = P(\chi_{2}^2 \ge 17.325) = 2e-04$
+
+6.  **Decision:** Since the resulting p-value is extremely small compared to the significant level, $H_0$ would be rejected in favor of $H_1$. Additionally, we could also come to the conclusion that DATA2X02 students' WAM rate appears to be related to how often they are punctual in submitting assignments.
+
+-   [**Limitation:**]{.underline} as the data on either WAM or frequency of punctual assignment submission is self-reported, it can be unauthentic, and thus misleading the final conclusion we have just made earlier.
+
+# Conclusion
+
+-   As one of the students joining DATA2X02 this semester, getting to know your cohort could be extremely beneficial. Throughout this project, the WAM rate of the whole cohort has been thoroughly investigated, together with other potentially related factors. The ultimate goal of this is to eventually discover a pattern that can relatively boost the academic performance of DATA2X02 students.
+
+-   Apparently, there are barely any relationships between academic scores and either students' height or their strategies of dealing with due tasks. Nevertheless, when it comes to the frequency of punctual assignment submission, statistical evidence appear to support the link. Based on the conclusion of this report, hopefully there would be a deeper investigation on the relationship between these 2 factors *(e.g. how one feature may affect the other one? Could there be a causation between those two? Are they reversely related to each other?,...)* to rocket DATA2X02 students' WAM in the near future.
+
+# Reference
+
+Burnett, D. (2018, February 14). The height of intelligence. *The Guardian*. <https://www.theguardian.com/science/brain-flapping/2013/aug/16/intelligence-height-psychology>
+
+Garth, T. (n.d.-a). *Report writing guide*. GitHub. <https://pages.github.sydney.edu.au/DATA2002/2023/assignment/report_writing.html>
+
+Garth, T. (n.d.-b). *Testing for independence*. GitHub. <https://pages.github.sydney.edu.au/DATA2002/2023/lec08.html#/title-slide>
+
+Garth, T. (n.d.-c). *Testing in small samples*.
+
+Garth, T. (n.d.-d). *Testing means*.
+
+Garth, T. (2023, September 6). *Data importing and cleaning guide*. GitHub. Retrieved September 3, 2023, from <https://pages.github.sydney.edu.au/DATA2002/2023/assignment/assignment_data.html>
+
+*Random samples assumption*. (n.d.). <https://sites.utexas.edu/sos/random/#:~:text=To%20be%20a%20truly%20random,being%20selected%20in%20your%20sample.>
